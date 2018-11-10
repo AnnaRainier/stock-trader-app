@@ -1,17 +1,23 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import {Subject, Observable, BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SharedService {
     constructor() { }
-  private userBalanceSource = new Subject<number>();
+  // private userBalanceSource = new Subject<number>();
+    private userBalanceSource = new BehaviorSubject(0);
+    private purchasedStocksSource = new BehaviorSubject([]);
 
-    userBalanceAnnounced$ = this.userBalanceSource.asObservable();
+    currentBalance = this.userBalanceSource.asObservable();
+    currentPurchasedStocks = this.purchasedStocksSource.asObservable();
 
-    announceUserBalance(balance: number) {
-      this.userBalanceSource.next(balance);
+    changePurchasedStocks(stocks: Array<Object>) {
+      this.purchasedStocksSource.next(stocks);
+    }
+    changeUserBalance(newBalance: number) {
+      this.userBalanceSource.next(newBalance);
     }
 
 }

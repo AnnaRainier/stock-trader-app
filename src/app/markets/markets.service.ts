@@ -12,14 +12,13 @@ export class MarketsService {
 
 
     getStocksList() {
-        return this.http.get<StockList>(`${this.url}/stocks`);
+        return this.http.get(`${this.url}/stocks`);
     }
 
     getStockById(id: number) {
         return this.http.get(`${this.url}/stocks/${id}`);
     }
     buyNewStock(stock, stockIsPurchased) {
-      this.updateUserBalance(stock.price);
       if (stockIsPurchased) {
         return this.http.put(`${this.url}/purchasedStocks/${stock.id}`, stock);
       } else {
@@ -33,12 +32,20 @@ export class MarketsService {
       };
       return this.http.put(`${this.url}/initialBalance`, newBalance);
     }
+
+    calcPriceWithTwoDecimals(price) {
+        price = price * 100;
+        price = Math.round(price);
+        price = price / 100;
+        return price;
+    }
 }
 export interface StockList {
     [index: number]: { id: number;
         name: string;
         price: string;
         category: string,
-        quantity?: number
+        quantity?: number,
+        sellQuantity?: number
     };
 }

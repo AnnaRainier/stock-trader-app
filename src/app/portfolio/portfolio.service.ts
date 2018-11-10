@@ -17,5 +17,14 @@ export class PortfolioService {
     getUserBalance() {
       return this.http.get(`${this.apiUrl}/initialBalance`);
     }
+    sellStock(stock, sellingQuantity) {
+     // switch (sellingQuantity) {
+          if (sellingQuantity > 0) {
+              return this.http.put(`${this.apiUrl}/purchasedStocks/${stock.id}`, stock);
+          } else {
+           // sellingQuantity = 0:
+            return this.http.delete(`${this.apiUrl}/purchasedStocks/${stock.id}`);
+      }
+    }
 
 }

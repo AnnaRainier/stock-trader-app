@@ -12,25 +12,35 @@ export class AppComponent implements OnInit, OnDestroy {
   private history: string[] = [];
   constructor (private portfolioService: PortfolioService,
                private sharedService: SharedService) {
-    this.sharedService.userBalanceAnnounced$.subscribe(balance => {
-      this.history.push(`${balance} has been announced`);
-      this.userBalance = balance;
-      console.log('header gets changes', this.userBalance);
-    });
   }
   private userBalance: number;
-  private userBalanceSubscription: Subscription;
+  private purchasedStocks: Array<Object>;
   title = 'stock-trader-app';
 
   ngOnInit() {
-    this.userBalanceSubscription = this.portfolioService.getUserBalance().subscribe(balance => {
-      this.userBalance = Number(balance['amount']);
-      this.sharedService.announceUserBalance(this.userBalance);
-      this.history.push(`${balance} has been changed`);
-    });
+      this.sharedService.currentBalance.subscribe(balance => {
+          this.userBalance = balance;
+      });
+    this.getUserBalance();
+      this.sharedService.currentPurchasedStocks.subscribe(stocks => {
+          this.purchasedStocks = stocks;
+      });
+    this.getPurchasedStocks();
   }
 
+    getUserBalance() {
+        this.portfolioService.getUserBalance().subscribe(balance => {
+            this.userBalance = Number(balance['amount']);
+            this.sharedService.changeUserBalance(this.userBalance);
+        });
+    }
+    getPurchasedStocks() {
+        this.portfolioService.getPurchasedStocks().subscribe((purchasedStocks: Array<Object>) => {
+            this.purchasedStocks = purchasedStocks;
+            this.sharedService.changePurchasedStocks(this.purchasedStocks);
+            console.log('purchased stocks', this.purchasedStocks);
+        });
+    }
   ngOnDestroy() {
-    this.userBalanceSubscription.unsubscribe();
   }
 }
