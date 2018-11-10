@@ -60,7 +60,7 @@
     "no-empty-interface": true,
     "no-eval": true,
     "no-inferrable-types": [
-      true,
+      false,
       "ignore-params"
     ],
     "no-misused-new": true,
@@ -97,6 +97,7 @@
       true,
       "allow-null-check"
     ],
+    "typedef": [true],
     "typedef-whitespace": [
       true,
       {
