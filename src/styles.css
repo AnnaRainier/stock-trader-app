@@ -11,3 +11,19 @@ table.stocks-table {
     width: 90%;
     margin: auto;
 }
+.trader-balance {
+    display: inline-block;
+    float: right;
+}
+.empty-portfolio {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    display: block;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin: auto;
+    text-align: center;
+}
+button.go-to-purchase-btn {
+    display: block;
+    margin: auto;
+}

@@ -14,10 +14,6 @@ export class MarketsService {
     getStocksList() {
         return this.http.get(`${this.url}/stocks`);
     }
-
-    getStockById(id: number) {
-        return this.http.get(`${this.url}/stocks/${id}`);
-    }
     buyNewStock(stock, stockIsPurchased) {
       if (stockIsPurchased) {
         return this.http.put(`${this.url}/purchasedStocks/${stock.id}`, stock);

@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy, Input} from '@angular/core';
-import {MarketsService, StockList} from './markets.service';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {MarketsService} from './markets.service';
 import {Subscription} from 'rxjs';
 import {PortfolioService} from '../portfolio/portfolio.service';
 import {SharedService} from '../shared.service';
@@ -11,8 +11,6 @@ import {MatTableDataSource} from '@angular/material';
   styleUrls: ['./markets.component.css']
 })
 export class MarketsComponent implements OnInit, OnDestroy {
-  // @Input() userBalance: number;
-  // @Input() purchasedStocks: Array<Object>;
   constructor(private marketsService: MarketsService,
               private portfolioService: PortfolioService,
               private sharedService: SharedService) {
@@ -29,13 +27,10 @@ export class MarketsComponent implements OnInit, OnDestroy {
   ngOnInit() {
       this.balanceSubscription = this.sharedService.currentBalance.subscribe((balance: number) => {
           this.userBalance = balance;
-          console.log('markets knows user balance', this.userBalance);
       });
     this.getStocksList();
       this.purchasedStocksSubscription = this.sharedService.currentPurchasedStocks.subscribe(stocks => {
           this.purchasedStocks = stocks;
-          // this.dataSource = this.purchasedStocks;
-          console.log('markets know purchased stocks', this.purchasedStocks);
       });
   }
 
@@ -66,7 +61,6 @@ export class MarketsComponent implements OnInit, OnDestroy {
         });
     }
     buyStock(stock) {
-      // console.log('stock', stock);
       const price = stock.price * stock.quantity;
       const purchasedStock = Object.assign({}, stock);
         purchasedStock.price = price;
@@ -78,11 +72,8 @@ export class MarketsComponent implements OnInit, OnDestroy {
        purchasedStock['price'] = this.marketsService.calcPriceWithTwoDecimals(purchasedStock['price']);
        const balanceLeft = this.userBalance - purchasedStock['price'];
        if (balanceLeft >= 0) {
-         console.log('ok');
            this.userBalance = this.marketsService.calcPriceWithTwoDecimals(balanceLeft);
            this.sharedService.changeUserBalance(this.userBalance);
-           console.log('stock', purchasedStock);
-           console.log('balance after purchase', this.userBalance);
            this.marketsService.buyNewStock(purchasedStock, stockInPurchased).subscribe(resp => {
                    console.log('response', resp);
                    delete stock.quantity;

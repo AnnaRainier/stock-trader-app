@@ -302,50 +302,9 @@
     }
   ],
   "purchasedStocks": [
-    {
-      "id": 3,
-      "name": "Fortis Inc.",
-      "price": 978.24,
-      "category": "Public Utilities",
-      "quantity": 7
-    },
-    {
-      "id": 19,
-      "name": "Cooper Companies, Inc. (The)",
-      "price": 917.52,
-      "category": "Health Care",
-      "quantity": 2
-    },
-    {
-      "id": 20,
-      "name": "First Cash, Inc.",
-      "price": 337,
-      "category": "Consumer Services",
-      "quantity": 10
-    },
-    {
-      "id": 21,
-      "name": "Discovery Communications, Inc.",
-      "price": 3362.25,
-      "category": "Consumer Services",
-      "quantity": 15
-    },
-    {
-      "id": 2,
-      "name": "Jensyn Acquistion Corp.",
-      "price": 575.26,
-      "category": "Finance",
-      "quantity": 2
-    },
-    {
-      "id": 23,
-      "name": "Grupo Supervielle S.A.",
-      "price": 768.99,
-      "category": "Finance",
-      "quantity": 3
-    }
+    
   ],
   "initialBalance": {
-    "amount": 44205.35
+    "amount": 10000
   }
 }

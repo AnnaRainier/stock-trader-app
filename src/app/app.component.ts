@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PortfolioService} from './portfolio/portfolio.service';
-import {Subscription} from 'rxjs';
 import {SharedService} from './shared.service';
 
 @Component({
@@ -9,7 +8,6 @@ import {SharedService} from './shared.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  private history: string[] = [];
   constructor (private portfolioService: PortfolioService,
                private sharedService: SharedService) {
   }
@@ -38,7 +36,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.portfolioService.getPurchasedStocks().subscribe((purchasedStocks: Array<Object>) => {
             this.purchasedStocks = purchasedStocks;
             this.sharedService.changePurchasedStocks(this.purchasedStocks);
-            console.log('purchased stocks', this.purchasedStocks);
         });
     }
   ngOnDestroy() {

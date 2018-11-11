@@ -1,5 +1,5 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {MarketsService, StockList} from '../markets/markets.service';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {MarketsService} from '../markets/markets.service';
 import {PortfolioService} from './portfolio.service';
 import {SharedService} from '../shared.service';
 import {Subscription} from 'rxjs';
@@ -19,17 +19,15 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     dataSource: Array<Object>;
     private balanceSubscription: Subscription;
     private purchasedStocksSubscription: Subscription;
-    private stocksSubsctiption: Subscription;
+    private stocksSubscription: Subscription;
     displayedColumns: string[] = ['id', 'name', 'price', 'quantity', 'sell-quantity', 'category', 'action'];
   ngOnInit() {
     this.balanceSubscription = this.sharedService.currentBalance.subscribe((balance: number) => {
         this.userBalance = balance;
-        console.log('portfolio knows user balance', this.userBalance);
     });
       this.purchasedStocksSubscription = this.sharedService.currentPurchasedStocks.subscribe(stocks => {
         this.purchasedStocks = stocks;
         this.dataSource = this.purchasedStocks;
-        console.log('portfolio knows purchased stocks', this.purchasedStocks);
         this.calculateTotalPurchasedPrice();
     });
   }
@@ -39,7 +37,6 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       sum += stock['price'];
     });
     this.totalPurchasedStocksPrice = sum;
-    console.log('total', this.totalPurchasedStocksPrice);
   }
   sellStock(stock) {
       const pricePerStock = stock.price / stock.quantity;
@@ -49,10 +46,10 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       delete sellingStock.sellQuantity;
       if (sellQuantity >= 0) {
         stock.quantity = sellQuantity;
+        sellingStock.price = stock.price - sellingPrice;
         sellingStock.quantity = sellQuantity;
           this.userBalance = this.marketsService.calcPriceWithTwoDecimals(this.userBalance + sellingPrice);
           this.sharedService.changeUserBalance(this.userBalance);
-          console.log('fine');
         this.portfolioService.sellStock(sellingStock, sellQuantity).subscribe(resp => {
           console.log('resp', resp);
           this.marketsService.updateUserBalance(this.userBalance).subscribe(response => {
@@ -67,7 +64,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       }
   }
     getPurchasedStocks() {
-        this.stocksSubsctiption = this.portfolioService.getPurchasedStocks().subscribe((purchasedStocks: Array<Object>) => {
+        this.stocksSubscription = this.portfolioService.getPurchasedStocks().subscribe((purchasedStocks: Array<Object>) => {
             this.purchasedStocks = purchasedStocks;
             this.sharedService.changePurchasedStocks(this.purchasedStocks);
             this.calculateTotalPurchasedPrice();
@@ -76,8 +73,8 @@ export class PortfolioComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
       this.balanceSubscription.unsubscribe();
      this.purchasedStocksSubscription.unsubscribe();
-     if (this.stocksSubsctiption) {
-         this.stocksSubsctiption.unsubscribe();
+     if (this.stocksSubscription) {
+         this.stocksSubscription.unsubscribe();
      }
     }
 

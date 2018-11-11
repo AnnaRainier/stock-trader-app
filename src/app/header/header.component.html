@@ -1,5 +1,5 @@
 <div class="wrapper">
   <button mat-button [routerLink]="['/markets']">Stocks</button>
   <button mat-button [routerLink]="['/portfolio']">Portfolio</button>
-  <mat-card>Your balance: {{userBalance | currency: 'USD'}}</mat-card>
+  <mat-card class="trader-balance">Your balance: {{userBalance | currency: 'USD'}}</mat-card>
 </div>

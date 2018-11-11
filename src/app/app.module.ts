@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { MarketsComponent } from './markets/markets.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
-import {Routes} from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
