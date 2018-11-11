@@ -6,9 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `npm i` before starting to work with the app in the `stock-trader-app` (main) project folder.
 
-## Running JSON server
+## Installing and running JSON server
 
-In order to have fake REST API, that is used within this app, run `json-server db.json` in the `stock-trader-app` (main) project folder.
+In order to have fake REST API, that is used within this app, install JSON server globally via command `npm install -g json-server` in your console.
+To run json server, execute command `json-server db.json` in the `stock-trader-app` (main) project folder.
 
 ## Development server
 
