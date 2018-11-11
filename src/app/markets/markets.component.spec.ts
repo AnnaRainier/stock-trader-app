@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MarketsComponent } from './markets.component';
+import {MarketsService} from './markets.service';
+import {PortfolioService} from '../portfolio/portfolio.service';
+import {SharedService} from '../shared.service';
 
 describe('MarketsComponent', () => {
   let component: MarketsComponent;
@@ -21,5 +24,9 @@ describe('MarketsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+  it('should have 50 stocks on sale', async (() => {
+      expect(component.stocksList.length).toEqual(50);
+   }));
   });
 });

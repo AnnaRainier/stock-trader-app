@@ -7,8 +7,23 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should have correct title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to stock-trader-app!');
+    expect(page.getPageTitle()).toEqual('StockTraderApp');
+  });
+
+  it('should have navigation', () => {
+    page.navigateTo();
+    expect(page.getStocksNavivagion() && page.getPortfolioNavigation());
+  });
+
+  it('should have user balance', () => {
+    page.navigateTo();
+    expect(page.getTraderBalance());
+  });
+  it('should disable purchase btn, if quantity of purchase is empty', () => {
+    page.navigateToStocksPage();
+    expect(page.getQuantityInputValue()).toBe('');
+    expect(page.getPurchaseBtnDisabled()).toBe('true');
   });
 });

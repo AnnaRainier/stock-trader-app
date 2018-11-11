@@ -301,9 +301,7 @@
       "category": "Technology"
     }
   ],
-  "purchasedStocks": [
-    
-  ],
+  "purchasedStocks": [],
   "initialBalance": {
     "amount": 10000
   }
