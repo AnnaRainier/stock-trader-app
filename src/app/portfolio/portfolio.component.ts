@@ -46,7 +46,7 @@ export class PortfolioComponent implements OnInit, OnDestroy {
       delete sellingStock.sellQuantity;
       if (sellQuantity >= 0) {
         stock.quantity = sellQuantity;
-        sellingStock.price = stock.price - sellingPrice;
+        sellingStock.price = this.marketsService.calcPriceWithTwoDecimals(stock.price - sellingPrice);
         sellingStock.quantity = sellQuantity;
           this.userBalance = this.marketsService.calcPriceWithTwoDecimals(this.userBalance + sellingPrice);
           this.sharedService.changeUserBalance(this.userBalance);
