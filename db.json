@@ -301,8 +301,16 @@
       "category": "Technology"
     }
   ],
-  "purchasedStocks": [],
+  "purchasedStocks": [
+    {
+      "id": 1,
+      "name": "MaxPoint Interactive, Inc.",
+      "price": 298.9,
+      "category": "Consumer Services",
+      "quantity": 1
+    }
+  ],
   "initialBalance": {
-    "amount": 10000
+    "amount": 9701.1
   }
 }

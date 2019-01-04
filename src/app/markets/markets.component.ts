@@ -4,6 +4,10 @@ import {Subscription} from 'rxjs';
 import {PortfolioService} from '../portfolio/portfolio.service';
 import {SharedService} from '../shared.service';
 import {MatTableDataSource} from '@angular/material';
+import {select, Store} from '@ngrx/store';
+import { State} from './store';
+import { LoadMarketList } from './store/actions/markets.actions';
+import { loadMarketsList } from './store/selectors/markets.selectors'
 
 @Component({
   selector: 'app-markets',
@@ -13,7 +17,8 @@ import {MatTableDataSource} from '@angular/material';
 export class MarketsComponent implements OnInit, OnDestroy {
   constructor(private marketsService: MarketsService,
               private portfolioService: PortfolioService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private store: Store<State>) {
   }
   private userBalance: number;
   private purchasedStocks: Array<Object>;
@@ -35,7 +40,8 @@ export class MarketsComponent implements OnInit, OnDestroy {
   }
 
     getStocksList() {
-      this.stocksSubscription = this.marketsService.getStocksList().subscribe((data: any) => {
+    this.store.dispatch(new LoadMarketList());
+      this.stocksSubscription = this.store.pipe(select(loadMarketsList)).subscribe((data: any) => {
        this.stocksList = data;
           console.log(data);
        this.dataSource = new MatTableDataSource(this.stocksList);

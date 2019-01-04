@@ -16,6 +16,11 @@ import { FormsModule } from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import {HttpClientModule} from '@angular/common/http';
+import {StoreModule} from '@ngrx/store';
+import {marketsReducers} from './markets/store';
+import { EffectsModule } from '@ngrx/effects';
+import {MarketsEffects} from './markets/store/effects/markets.effects';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -36,7 +41,12 @@ import {HttpClientModule} from '@angular/common/http';
       MatTableModule,
       MatFormFieldModule,
       MatInputModule,
-      MatCardModule
+      MatCardModule,
+      StoreModule.forRoot(marketsReducers, {}),
+      StoreModule.forFeature('markets', marketsReducers),
+      StoreDevtoolsModule.instrument(),
+      EffectsModule.forRoot([]),
+      EffectsModule.forFeature([MarketsEffects])
   ],
   providers: [MarketsService],
   bootstrap: [AppComponent]

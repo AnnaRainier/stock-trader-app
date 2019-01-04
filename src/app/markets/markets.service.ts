@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {Market} from './models/market';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +13,8 @@ export class MarketsService {
     private url: string = 'http://127.0.0.1:3000';
 
 
-    getStocksList() {
-        return this.http.get(`${this.url}/stocks`);
+    getStocksList(): Observable<Market[]> {
+        return this.http.get<Market[]>(`${this.url}/stocks`);
     }
     buyNewStock(stock, stockIsPurchased) {
       if (stockIsPurchased) {
